@@ -1,0 +1,1 @@
+npx sequelize-cli model:generate --name Order --attributes id_user:integer,idOrderDetails:integer,price:double,id_userBuy:integer

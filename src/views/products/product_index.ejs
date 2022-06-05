@@ -1,0 +1,77 @@
+<%- include('../pages/menu'); %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>DataTables</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">DataTables</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              
+              <a href="/add"  class="btn btn btn-success">Add</a>
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+             
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Id_Product</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                 
+                  <% for(let i = 0; i< events.length ;i++){ %> 
+                    <tr>
+                      <th><%=events[i].id_product%></th>
+                      <th><%=events[i].name%></th>
+                      <th><%=events[i].price%></th>
+                      <th><%=events[i].category%></th>
+                      <th><%=events[i].description%></th>
+                      <th>
+                       <button class="btn" ><a class="btn btn-success" href="/edit_product/<%=events[i].id_product %> ">Edit</a></button>
+                       <button class="btn" ><a class="btn btn-danger" href="/delete_product/<%=events[i].id_product %>">Xoá</a></button>
+                      </th>
+                    </tr>
+                    <% } %> 
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+         
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

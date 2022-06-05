@@ -1,0 +1,82 @@
+<%- include('../pages/menu'); %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>DataTables</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">DataTables</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              
+              <a href="/add"  class="btn btn btn-success">Add</a>
+            </div>
+            
+            <!-- /.card-header -->
+            <div class="card-body">
+             
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>ID Order</th>
+                  <th>ID User</th>
+                  <th>Price</th>
+                  <th>Name KH</th>
+                  <th>Chi Nhánh</th>
+                  <th>Start </th>
+                  <th>Reload</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                 
+                  <% for(let i = 0; i< orders.length ;i++){ %> 
+                    <tr>
+                      <%=orders[i].start%>
+                      <th><%=orders[i].id_order%></th>
+                      <th><%=orders[i].id_user%></th>
+                      <th><%=orders[i].price%></th>
+                      <th><%=orders[i].name_KH%></th>
+                      <th><%=orders[i].id_CN%></th>
+                      <th><%=orders[i].start%></th>
+                      <th><%=orders[i].reload%></th>
+                      <th>
+                       <button class="btn" ><a class="btn btn-success" href="/edit_order/<%=orders[i].id_order %> ">Edit</a></button>
+                       <button class="btn" ><a class="btn btn-danger" href="/delete_order/<%=orders[i].id_order %>">Xoá</a></button>
+                      </th>
+                    </tr>
+                    <% } %> 
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+         
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
