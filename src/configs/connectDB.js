@@ -2,12 +2,10 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
     host: process.env.SQL_SERVER,
-    dialect: 'mssql',
-    port: 1433,
+    dialect: process.env.SQL_DIALECT,
     logging: false,
-    encrypt: false,
-    encrypt: false,
-    trustServerCertificate: true,
+    port: process.env.SQL_PORT,
+    logging: false,
 });
 let connectDB = async () => {
     try {

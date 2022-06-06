@@ -1,1 +1,4 @@
-npx sequelize-cli model:generate --name Order --attributes id_user:integer,idOrderDetails:integer,price:double,id_userBuy:integer
+npx sequelize-cli model:generate --name Order --attributes id_user:integer,idOrderDetails:integer,price:double,id_userBuy:integer,status:integer
+npx sequelize-cli model:generate --name Product --attributes name:string,price:double,description:text,image:string,category_id
+npx sequelize-cli model:generate --name User --attributes name:string,email:string,address:string,image:string,password:string,phone:string,role_id:integer
+npx sequelize-cli model:generate --name OrderDetails --attributes order_id:integer,product_id:integer,price:double,quantity:integer

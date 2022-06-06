@@ -15,13 +15,16 @@ module.exports = {
         type: Sequelize.DOUBLE
       },
       description: {
-        type: Sequelize.STRING
-      },
-      idCategory: {
-        type: Sequelize.INTEGER
+        type: Sequelize.TEXT
       },
       image: {
         type: Sequelize.STRING
+      },
+      category_id: {
+        type: Sequelize.INTEGER
+      },
+      quantity: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

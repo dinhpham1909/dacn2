@@ -1,149 +1,151 @@
 import db from '../models/index';
 
-///funtion getAllProduct get all product and get Category where idCategory using sequelize and promise
-let getAllProduct = async () => {
+//get all products from database using sequelize and promise
+let getAllProducts = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let fonts = await db.Product.findAll({
+            let products = await db.Product.findAll({
                 include: [
                     {
                         model: db.Category,
-                        where: { id: db.Product.idCategory },
+                        attributes: ['name'],
+                        as: 'category',
                     },
                 ],
             });
-            resolve(fonts);
+            resolve(products);
         } catch (error) {
             reject(error);
         }
     });
 };
-///funtion addProduct add product using sequelize and promise
+//add Product using promise and sequelize
 let addProduct = async (product) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (product) {
-                db.Product.create({
+                let newProduct = await db.Product.create({
                     name: product.name,
                     price: product.price,
-                    idCategory: product.idCategory,
+                    categoryId: product.categoryId,
                     description: product.description,
                     image: product.image,
+                    quantity: product.quantity,
                 });
+                resolve(newProduct);
             }
-            resolve(fonts);
+            reject('product is required');
         } catch (error) {
             reject(error);
         }
     });
 };
-
-//funtion deleteProduct delete product by id using sequelize and promise
+let updateProduct = async (product) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (product.id) {
+                let updatedProduct = await db.Product.update(
+                    {
+                        name: product.name,
+                        price: product.price,
+                        categoryId: product.categoryId,
+                        description: product.description,
+                        image: product.image,
+                        quantity: product.quantity,
+                    },
+                    {
+                        where: {
+                            id: product.id,
+                        },
+                    },
+                );
+                resolve(updatedProduct);
+            } else {
+                reject('id is required');
+            }
+            resolve(updatedProduct);
+        } catch (error) {
+            reject(error);
+        }
+    });
+};
 let deleteProduct = async (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let fonts = await db.Product.destroy({
-                where: { id },
-            });
-            resolve('Delete product success');
+            if (id) {
+                let product = await db.Product.destroy({
+                    where: {
+                        id: id,
+                    },
+                });
+                resolve(product);
+            } else {
+                reject('id is required');
+            }
         } catch (error) {
             reject(error);
         }
     });
 };
-//funtion updateProduct update product by id using sequelize and promise
-let updateProduct = async (id, product) => {
+///paginate products return products, page, totalPages, totalProducts
+let paginateProducts = async (page, limit) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let productFind = await db.Product.update(
-                {
-                    name: product.name,
-                    price: product.price,
-                    idCategory: product.idCategory,
-                    description: product.description,
-                    image: product.image,
-                },
-                {
-                    where: { id },
-                },
-            );
-            resolve(productFind);
+            if (page && limit) {
+                let totalProducts = await db.Product.count();
+                let totalPages = Math.ceil(totalProducts / limit);
+                let products = await db.Product.findAll({
+                    limit: limit,
+                    offset: (page - 1) * limit,
+                    include: [
+                        {
+                            model: db.Category,
+                            attributes: ['name'],
+                            as: 'category',
+                        },
+                    ],
+                });
+                resolve({ products, page, totalPages, totalProducts });
+            } else {
+                reject('page and limit are required');
+            }
         } catch (error) {
             reject(error);
         }
     });
 };
-//funtion getProductById get product by id using sequelize and promise
+///get product by id
 let getProductById = async (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let fonts = await db.Product.findOne({
-                where: { id },
-            });
-            resolve(fonts);
+            if (id) {
+                let product = await db.Product.findOne({
+                    where: {
+                        id: id,
+                    },
+                    include: [
+                        {
+                            model: db.Category,
+                            attributes: ['name'],
+                            as: 'category',
+                        },
+                    ],
+                });
+                resolve(product);
+            } else {
+                reject('id is required');
+            }
         } catch (error) {
             reject(error);
         }
     });
 };
-//funtion getProductByCategory get product by id using sequelize and promise
-let getProductByCategory = async (id) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let fonts = await db.Product.findAll({
-                where: { idCategory: id },
-            });
-            resolve(fonts);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-//funtion getCountProduct get count producModel using sequelize and promise
-let getCountProduct = async () => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let count = await db.Product.count();
-            resolve(count);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-
-//fution GetPaginateProduct get product by page limit using sequelize and promise
-let GetPaginateProduct = async (page, limit) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let products = await db.Product.findAll({
-                offset: (page - 1) * limit,
-                limit: limit,
-            });
-            ///count get count from getCountProduct
-            let count = await getCountProduct();
-            ///// data object add  count products page limit allPage
-            let allPage = Math.ceil(count / limit);
-            let data = {
-                products: products,
-                count: count,
-                page: page,
-                page: limit,
-                allPage: allPage,
-            };
-            resolve(data);
-        } catch (error) {
-            reject(error);
-        }
-    });
-};
-
-///module export all medthod
+//export all function
 module.exports = {
-    getAllProduct: getAllProduct,
+    getAllProducts: getAllProducts,
     addProduct: addProduct,
-    deleteProduct: deleteProduct,
     updateProduct: updateProduct,
+    deleteProduct: deleteProduct,
+    paginateProducts: paginateProducts,
     getProductById: getProductById,
-    getProductByCategory: getProductByCategory,
-    GetPaginateProduct: GetPaginateProduct,
 };
