@@ -15,7 +15,10 @@ let initWebRoute = (app) => {
     // product
     router.get('/add_product', homeController.addProductPage);
     router.get('/product_index', homeController.getProductPage);
-    router.get('/edit_product', homeController.editProductPage);
+    router.get('/edit_product/:id', homeController.editProductPage);
+    router.get('/delete_product/:id_product', homeController.deleteProduct);
+    router.post('/update_product', homeController.updateProduct);
+    router.post('/add_product', homeController.addProduct);
 
     // order
     router.get('/add_order', homeController.addOrderPage);
