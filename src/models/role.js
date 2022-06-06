@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
     Role.init(
         {
             name: DataTypes.STRING,
-            permission_id: DataTypes.INTEGER,
             description: DataTypes.TEXT,
         },
         {

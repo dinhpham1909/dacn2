@@ -11,9 +11,7 @@ module.exports = {
             name: {
                 type: Sequelize.STRING,
             },
-            permission_id: {
-                type: Sequelize.INTEGER,
-            },
+
             description: {
                 type: Sequelize.TEXT,
             },
