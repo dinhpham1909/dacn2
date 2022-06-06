@@ -44,22 +44,36 @@ let updateProduct = async (product) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (product.id) {
-                let updatedProduct = await db.Product.update(
-                    {
-                        name: product.name,
-                        price: product.price,
-                        categoryId: product.categoryId,
-                        description: product.description,
-                        image: product.image,
-                        quantity: product.quantity,
+                ///using findOne and update
+                let existingProduct = await db.Product.findOne({
+                    where: {
+                        id: product.id,
                     },
-                    {
-                        where: {
-                            id: product.id,
-                        },
-                    },
-                );
-                resolve(updatedProduct);
+                });
+                if (existingProduct) {
+                    if (product.name) {
+                        existingProduct.name = product.name;
+                    }
+                    if (product.price) {
+                        existingProduct.price = product.price;
+                    }
+                    if (product.categoryId) {
+                        existingProduct.categoryId = product.categoryId;
+                    }
+                    if (product.description) {
+                        existingProduct.description = product.description;
+                    }
+                    if (product.image) {
+                        existingProduct.image = product.image;
+                    }
+                    if (product.quantity) {
+                        existingProduct.quantity = product.quantity;
+                    }
+                    existingProduct.save();
+                    resolve(existingProduct);
+                } else {
+                    reject('not found');
+                }
             } else {
                 reject('id is required');
             }

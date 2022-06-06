@@ -1,9 +1,15 @@
 // import { render } from 'express/lib/response';
 import userService from '../services/userService';
-import productService from '../services/productService';
+import roleService from '../services/roleService';
 
+import productService from '../services/productService';
+import orderService from '../services/orderService';
 let getHomePage = async (req, res) => {
+<<<<<<< HEAD
     let data = await productService.getAllProducts();
+=======
+    let data = await orderService.getAllOrders();
+>>>>>>> be250e01b9524ef84712b22457e61804b388632f
     res.status(200).json(data);
 };
 
