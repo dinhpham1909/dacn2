@@ -64,7 +64,7 @@ let getAllRoles = async () => {
     return new Promise(async (resolve, reject) => {
         try {
             let roles = await db.Role.findAll({
-                attributes: ['name', 'description'],
+                attributes: ['id', 'name', 'description'],
                 include: [
                     {
                         model: db.Permission,

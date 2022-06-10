@@ -7,10 +7,11 @@ let createOrder = async (order) => {
             if (order) {
                 let newOrder = await db.Order.create({
                     id_user: order.id_user,
-                    id_oder_details: order.id_oder_details,
+                    id_orderDetails: order.id_orderDetails,
                     price: order.price,
                     id_userBuy: order.id_userBuy,
                     status: order.status,
+                    id_CN: order.id_CN,
                 });
                 resolve(newOrder);
             }
@@ -50,6 +51,14 @@ let getAllOrders = async () => {
                     {
                         model: db.User,
                         as: 'user',
+                    },
+                    {
+                        model: db.User,
+                        as: 'userbuy',
+                    },
+                    {
+                        model: db.ChiNhanh,
+                        as: 'chinhanh',
                     },
                 ],
             }).catch((error) => {
@@ -101,8 +110,8 @@ let updateOrder = async (order) => {
                     if (order.id_user) {
                         existingOrder.id_user = order.id_user;
                     }
-                    if (order.id_oder_details) {
-                        existingOrder.id_oder_details = order.id_oder_details;
+                    if (order.id_orderDetails) {
+                        existingOrder.id_orderDetails = order.id_orderDetails;
                     }
                     if (order.price) {
                         existingOrder.price = order.price;
@@ -112,6 +121,9 @@ let updateOrder = async (order) => {
                     }
                     if (order.status) {
                         existingOrder.status = order.status;
+                    }
+                    if (order.status) {
+                        existingOrder.id_CN = order.id_CN;
                     }
                     existingOrder.save();
                     resolve(existingOrder);
@@ -135,32 +147,39 @@ let getOrderById = async (id) => {
                     where: {
                         id: id,
                     },
+
                     include: [
                         {
                             model: db.OrderDetails,
-                            attributes: ['id', 'id_product', 'quantity'],
-                            as: 'orderDetails',
+                            attributes: ['id', 'product_id', 'quantity'],
+                            as: 'orderdetails',
                             include: [
                                 {
                                     model: db.Product,
-                                    attributes: ['name', 'price', 'image'],
+                                    raw: true,
                                     as: 'product',
                                     include: [
                                         {
                                             model: db.Category,
                                             attributes: ['name'],
+                                            raw: true,
                                             as: 'category',
                                         },
                                     ],
                                 },
                             ],
-                            include: [
-                                {
-                                    model: db.User,
-                                    attributes: ['name', 'email'],
-                                    as: 'user',
-                                },
-                            ],
+                        },
+                        {
+                            model: db.User,
+                            as: 'user',
+                        },
+                        {
+                            model: db.User,
+                            as: 'userbuy',
+                        },
+                        {
+                            model: db.ChiNhanh,
+                            as: 'chinhanh',
                         },
                     ],
                 });

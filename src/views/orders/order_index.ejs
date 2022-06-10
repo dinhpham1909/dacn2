@@ -34,31 +34,34 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>ID Order</th>
-                  <th>ID User</th>
+                  <th>Id Order</th>
+                  <th>Id User</th>
+                  <th>Id Order Details</th>
                   <th>Price</th>
-                  <th>Name KH</th>
+                  <th>Status</th>
+                  <th>ID_User Buy</th>
                   <th>Chi Nhánh</th>
-                  <th>Start </th>
-                  <th>Reload</th>
+                  <th>Create At</th>
+                  <th>Update At</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                  
-                  <% for(let i = 0; i< orders.length ;i++){ %> 
+                  <% for(let i = 0; i< events.length ;i++){ %> 
                     <tr>
-                      <%=orders[i].start%>
-                      <th><%=orders[i].id_order%></th>
-                      <th><%=orders[i].id_user%></th>
-                      <th><%=orders[i].price%></th>
-                      <th><%=orders[i].name_KH%></th>
-                      <th><%=orders[i].id_CN%></th>
-                      <th><%=orders[i].start%></th>
-                      <th><%=orders[i].reload%></th>
+                      <th><%=events[i].id%></th>
+                      <th><%=events[i].user.name%></th>
+                      <th><%=events[i].id_orderDetails%></th>
+                      <th><%=events[i].price%></th>
+                      <th><%=events[i].status%></th>
+                      <th><%=events[i].userbuy.name%></th>
+                      <th><%=events[i].chinhanh.name%></th>
+                      <th><%=events[i].createdAt%></th>
+                      <th><%=events[i].updatedAt%></th>
                       <th>
-                       <button class="btn" ><a class="btn btn-success" href="/edit_order/<%=orders[i].id_order %> ">Edit</a></button>
-                       <button class="btn" ><a class="btn btn-danger" href="/delete_order/<%=orders[i].id_order %>">Xoá</a></button>
+                       <button class="btn" ><a class="btn btn-success" href="/edit_order/<%=events[i].id %> ">Edit</a></button>
+                       <button class="btn" ><a class="btn btn-danger" href="/delete_order/<%=events[i].id %>">Xoá</a></button>
                       </th>
                     </tr>
                     <% } %> 

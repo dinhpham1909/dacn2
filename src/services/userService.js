@@ -166,6 +166,7 @@ let updateUser = async (user) => {
                         userOne.image = user.image;
                     }
                     userOne.save();
+                    resolve(userOne);
                 } else {
                     reject('User not found');
                 }
@@ -208,4 +209,5 @@ module.exports = {
     createUser: createUser,
     updateUser: updateUser,
     deleteUser: deleteUser,
+    checkUserExist: checkUserExist,
 };

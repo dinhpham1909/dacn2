@@ -1,7 +1,7 @@
 import db from '../models/index';
 
 //create new Order using promise and sequelize
-let createOrder = async (order) => {
+let createOrderDetails = async (order) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (order) {
@@ -37,4 +37,8 @@ let deleteOrderDetails = async (id) => {
             reject(error);
         }
     });
+};
+module.exports = {
+    createOrderDetails: createOrderDetails,
+    deleteOrderDetails: deleteOrderDetails,
 };

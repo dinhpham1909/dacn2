@@ -34,9 +34,11 @@
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Id Category</th>
+                  <th>Id Chi Nhánh</th>
                   <th>Name</th>
-                  <th>Description</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Phone</th>
                   <th>Create At</th>
                   <th>Update At</th>
                   <th>Action</th>
@@ -48,12 +50,14 @@
                     <tr>
                       <th><%=events[i].id%></th>
                       <th><%=events[i].name%></th>
-                      <th><%=events[i].description%></th>
+                      <th><%=events[i].email%></th>
+                      <th><%=events[i].address%></th>
+                      <th><%=events[i].phone%></th>
                       <th><%=events[i].createdAt%></th>
                       <th><%=events[i].updatedAt%></th>
                       <th>
-                       <button class="btn" ><a class="btn btn-success" href="/edit_category/<%=events[i].id %> ">Edit</a></button>
-                       <button class="btn" ><a class="btn btn-danger" href="/delete_category/<%=events[i].id %>">Xoá</a></button>
+                       <button class="btn" ><a class="btn btn-success" href="/edit_chinhanh/<%=events[i].id %> ">Edit</a></button>
+                       <button class="btn" ><a class="btn btn-danger" href="/delete_chinhanh/<%=events[i].id %>">Xoá</a></button>
                       </th>
                     </tr>
                     <% } %> 

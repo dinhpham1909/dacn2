@@ -1,68 +1,72 @@
 import db from '../models/index';
 
-//get all category from database using sequelize and promise
-let getAllCategory = async () => {
+//get all chinhanh from database using sequelize and promise
+let getAllchinhanh = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let category = await db.Category.findAll();
-            resolve(category);
+            let chinhanh = await db.ChiNhanh.findAll();
+            resolve(chinhanh);
         } catch (error) {
             reject(error);
         }
     });
 };
 //add Product using promise and sequelize
-let addCategory = async (category) => {
+let addchinhanh = async (chinhanh) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (category) {
-                let newCategory = await db.Category.create({
-                    name: category.name,
-                    description: category.description,
+            if (chinhanh) {
+                let newchinhanh = await db.ChiNhanh.create({
+                    name: chinhanh.name,
+                    email: chinhanh.email,
+                    address: chinhanh.address,
+                    phone: chinhanh.phone,
                 });
-                resolve(newCategory);
+                resolve(newchinhanh);
             }
-            reject('category is required');
+            reject('chinhanh is required');
         } catch (error) {
             reject(error);
         }
     });
 };
-let updateCategory = async (category) => {
+let updatechinhanh = async (chinhanh) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (category.id) {
-                let updatedCategory = await db.Category.update(
+            if (chinhanh.id) {
+                let updatedchinhanh = await db.ChiNhanh.update(
                     {
-                        name: category.name,
-                        description: category.description,
+                        name: chinhanh.name,
+                        email: chinhanh.email,
+                        address: chinhanh.address,
+                        phone: chinhanh.phone,
                     },
                     {
                         where: {
-                            id: category.id,
+                            id: chinhanh.id,
                         },
                     },
                 );
-                resolve(updatedCategory);
+                resolve(updatedchinhanh);
             } else {
                 reject('id is required');
             }
-            resolve(updatedCategory);
+            resolve(updatedchinhanh);
         } catch (error) {
             reject(error);
         }
     });
 };
-let deleteCategory = async (id) => {
+let deletechinhanh = async (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (id) {
-                let category = await db.Category.destroy({
+                let chinhanh = await db.ChiNhanh.destroy({
                     where: {
                         id: id,
                     },
                 });
-                resolve(category);
+                resolve(chinhanh);
             } else {
                 reject('id is required');
             }
@@ -71,18 +75,18 @@ let deleteCategory = async (id) => {
         }
     });
 };
-///paginate category return category, page, totalPages, totalcategory
-let paginateCategory = async (page, limit) => {
+///paginate chinhanh return chinhanh, page, totalPages, totalchinhanh
+let paginatechinhanh = async (page, limit) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (page && limit) {
-                let totalCategory = await db.Category.count();
-                let totalPages = Math.ceil(totalCategory / limit);
-                let categorys = await db.Category.findAll({
+                let totalchinhanh = await db.ChiNhanh.count();
+                let totalPages = Math.ceil(totalchinhanh / limit);
+                let chinhanhs = await db.chinhanh.findAll({
                     limit: limit,
                     offset: (page - 1) * limit,
                 });
-                resolve({ categorys, page, totalPages, totalCategory });
+                resolve({ chinhanhs, page, totalPages, totalchinhanh });
             } else {
                 reject('page and limit are required');
             }
@@ -92,16 +96,16 @@ let paginateCategory = async (page, limit) => {
     });
 };
 ///get product by id
-let getCategoryById = async (id) => {
+let getchinhanhById = async (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (id) {
-                let category = await db.Category.findOne({
+                let chinhanh = await db.ChiNhanh.findOne({
                     where: {
                         id: id,
                     },
                 });
-                resolve(category);
+                resolve(chinhanh);
             } else {
                 reject('id is required');
             }
@@ -112,10 +116,10 @@ let getCategoryById = async (id) => {
 };
 //export all function
 module.exports = {
-    getAllCategory: getAllCategory,
-    addCategory: addCategory,
-    updateCategory: updateCategory,
-    deleteCategory: deleteCategory,
-    paginateCategory: paginateCategory,
-    getCategoryById: getCategoryById,
+    getAllchinhanh: getAllchinhanh,
+    addchinhanh: addchinhanh,
+    updatechinhanh: updatechinhanh,
+    deletechinhanh: deletechinhanh,
+    paginatechinhanh: paginatechinhanh,
+    getchinhanhById: getchinhanhById,
 };
